@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3795D19F-82C5-4BCB-8750-950FD3ECC627}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DA225AAA-2068-4718-A968-1328EC5ACC87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{A42FB681-C8B2-4BFF-8584-E6CD195C855C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CA0FE7F7-9288-4C87-A592-A82E59FBDDBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIFA.Domain", "FIFA.Domain\FIFA.Domain.csproj", "{21C459FF-D2E2-4373-9606-37177DC51396}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21C459FF-D2E2-4373-9606-37177DC51396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21C459FF-D2E2-4373-9606-37177DC51396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21C459FF-D2E2-4373-9606-37177DC51396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21C459FF-D2E2-4373-9606-37177DC51396}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{21C459FF-D2E2-4373-9606-37177DC51396} = {3795D19F-82C5-4BCB-8750-950FD3ECC627}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B88AADF0-DFF2-42C5-A317-BEC500B00033}
+	EndGlobalSection
+EndGlobal
