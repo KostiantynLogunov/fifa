@@ -1,7 +1,5 @@
 ﻿using FIFA.Domain;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FIFA.Application.Interfaces
 {
