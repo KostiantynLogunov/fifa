@@ -7,10 +7,10 @@ namespace FIFA.Persistence
 {
     public class FootballersDbContext: DbContext, IFootballersDbContext
     {
+        public DbSet<Footballer> Footballers { get; set; }
+
         public FootballersDbContext(DbContextOptions<FootballersDbContext> options)
             :base(options) { }
-
-        public DbSet<Footballer> Footballers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -4,7 +4,8 @@
     {
         public static void Initialize(FootballersDbContext context) 
         {
-            context.Database.EnsureCreated();
+            //var res1 = context.Database.EnsureDeleted();
+            var res2 = context.Database.EnsureCreated();
         }
     }
 }

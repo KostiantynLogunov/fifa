@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace FIFA.Application.Common.Mappings
 {
-    internal class AssemblyMappingProfile : Profile
+    public class AssemblyMappingProfile : Profile
     {
-        protected internal AssemblyMappingProfile(Assembly assembly) => ApplyMappingsFromAssembly(assembly);
+        public AssemblyMappingProfile(Assembly assembly) => ApplyMappingsFromAssembly(assembly);
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {

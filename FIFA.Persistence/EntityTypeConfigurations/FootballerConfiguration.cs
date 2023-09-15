@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FIFA.Persistence.EntityTypeConfigurations
 {
-    internal class FootballerConfiguration : IEntityTypeConfiguration<Footballer>
+    public class FootballerConfiguration : IEntityTypeConfiguration<Footballer>
     {
         public void Configure(EntityTypeBuilder<Footballer> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Id).IsUnique();
-            builder.Property(x => x.FirstName).HasMaxLength(150);
+            builder.HasKey(footballer => footballer.Id);
+            builder.HasIndex(footballer => footballer.Id).IsUnique();
+            builder.Property(footballer => footballer.FirstName).HasMaxLength(150);
         }
     }
 }
