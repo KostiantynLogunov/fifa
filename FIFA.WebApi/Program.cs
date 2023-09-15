@@ -7,6 +7,7 @@ using System;
 using System.Reflection;
 using FIFA.Application;
 using Microsoft.Extensions.Configuration;
+using FIFA.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,9 @@ using(var scope = app.Services.CreateScope())
         //throw;
     }
 }
+
+app.UseCustomExceptionHandler();
+
 app.UseRouting();
 
 app.UseHttpsRedirection();
