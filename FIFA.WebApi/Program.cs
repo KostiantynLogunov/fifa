@@ -13,8 +13,18 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.Extensions.Options;
 using FIFA.WebApi;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Serilog.Events;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
+
+Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .WriteTo.File("NotesWebAppLog-.txt", rollingInterval:
+                    RollingInterval.Day)
+                .CreateLogger();
 
 //builder.Services.AddScoped<FootballersDbContext>();
 builder.Services.AddAutoMapper(config =>
@@ -58,9 +68,9 @@ using(var scope = app.Services.CreateScope())
         var context = serviceProvider.GetRequiredService<FootballersDbContext>();
         DbInitializer.Initialize(context);
     }
-    catch (Exception)
+    catch (Exception ex)
     {
-
+        Log.Fatal(ex, "an error occured while app initialization");
         //throw;
     }
 }
@@ -78,6 +88,8 @@ app.UseSwaggerUI(config =>
         config.RoutePrefix = string.Empty;
     }
 });
+
+//app.UseSerilogRequestLogging();
 
 app.UseCustomExceptionHandler();
 
