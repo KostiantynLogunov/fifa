@@ -8,7 +8,6 @@ using System.Reflection;
 using FIFA.Application;
 using Microsoft.Extensions.Configuration;
 using FIFA.WebApi.Middleware;
-using System.IO;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.Extensions.Options;
 using FIFA.WebApi;
