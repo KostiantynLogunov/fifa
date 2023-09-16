@@ -8,6 +8,7 @@ using System.Reflection;
 using FIFA.Application;
 using Microsoft.Extensions.Configuration;
 using FIFA.WebApi.Middleware;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSwaggerGen(config =>
+{
+    var xmlFile = $"{typeof(Program).Assembly.GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    config.IncludeXmlComments(xmlPath);
+});
+
 var app = builder.Build();
 
 using(var scope = app.Services.CreateScope())
@@ -49,6 +57,13 @@ using(var scope = app.Services.CreateScope())
         //throw;
     }
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(config =>
+{
+    config.RoutePrefix = string.Empty;
+    config.SwaggerEndpoint("swagger/v1/swagger.json", "Footballer API");
+});
 
 app.UseCustomExceptionHandler();
 

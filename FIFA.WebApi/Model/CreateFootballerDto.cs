@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using FIFA.Application.Common.Mappings;
 using FIFA.Application.Footballers.Commands.CreateFootballer;
+using System.ComponentModel.DataAnnotations;
 
 namespace FIFA.WebApi.Model
 {
     public class CreateFootballerDto: IMapWith<CreateFootballerCommand>
     {
+        [Required]
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? OVR { get; set; }
