@@ -9,6 +9,10 @@ using FIFA.Application;
 using Microsoft.Extensions.Configuration;
 using FIFA.WebApi.Middleware;
 using System.IO;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Extensions.Options;
+using FIFA.WebApi;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,12 +38,15 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddSwaggerGen(config =>
-{
-    var xmlFile = $"{typeof(Program).Assembly.GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    config.IncludeXmlComments(xmlPath);
-});
+builder.Services.AddVersionedApiExplorer(options =>
+    options.GroupNameFormat="'v'VVV");
+
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>,
+    ConfigureSwaggerOptions>();
+
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddApiVersioning();
 
 var app = builder.Build();
 
@@ -61,8 +68,15 @@ using(var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI(config =>
 {
-    config.RoutePrefix = string.Empty;
-    config.SwaggerEndpoint("swagger/v1/swagger.json", "Footballer API");
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+    foreach (var description in provider.ApiVersionDescriptions)
+    {
+        config.SwaggerEndpoint(
+            $"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant());
+        config.RoutePrefix = string.Empty;
+    }
 });
 
 app.UseCustomExceptionHandler();
@@ -72,6 +86,8 @@ app.UseRouting();
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+app.UseApiVersioning();
 
 app.UseEndpoints(endpoints =>
 {

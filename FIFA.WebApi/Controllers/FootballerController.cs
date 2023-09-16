@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace FIFA.WebApi.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/{version:apiVersion}/[controller]")]
     public class FootballerController : BaseController
     {
         private readonly IMapper _mapper;
