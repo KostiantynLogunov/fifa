@@ -3,19 +3,13 @@ using System.Threading;
 using BS = Microsoft.Extensions.Hosting.BackgroundService;
 using System;
 using FIFA.WebApi.Services;
-using AngleSharp;
-using System.Collections;
 using FIFA.Domain;
 using System.Collections.Generic;
-using System.Linq;
-
-//using Fizzler;
 
 namespace FIFA.WebApi.BackgroundService
 {
     public class Worker: BS
     {
-        //private readonly IServiceProvider _serviceProvider;
         private readonly IResourceProcessingService _resourceProcessingService;
         public Worker(IResourceProcessingService resourceProcessingService) => _resourceProcessingService = resourceProcessingService;
 
@@ -27,7 +21,7 @@ namespace FIFA.WebApi.BackgroundService
 
             var addr = "https://www.futwiz.com/en/fifa23/players?page=";
 
-            var pages = 100;
+            var pages = 800;
 
             for (int i = 0; i <= pages; i++)
             {
@@ -45,7 +39,7 @@ namespace FIFA.WebApi.BackgroundService
                     generalFootballerList = new List<Footballer>();
                 }*/
 
-                Thread.Sleep(500);
+                await Task.Delay(200);
             }
 
             await _resourceProcessingService.StoreDataToDbAsync(generalFootballerList, stoppingToken);

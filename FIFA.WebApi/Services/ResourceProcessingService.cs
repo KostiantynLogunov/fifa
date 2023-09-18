@@ -1,4 +1,5 @@
 ﻿using AngleSharp;
+using AngleSharp.Dom;
 using FIFA.Application.Interfaces;
 using FIFA.Domain;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,30 +52,51 @@ namespace FIFA.WebApi.Services
 
             foreach (var tr in trs)
             {
-                var NameInLine = tr.QuerySelector("p.name b")?.InnerHtml;
-                var team = tr.QuerySelector("p.team a:nth-child(2)")?.InnerHtml;
-                //await Console.Out.WriteLineAsync($"{NameInLine} - {team}");
 
-                //string phrase = "The quick brown fox jumps over the lazy dog.";
-                string[] fullName = NameInLine.Split(' ');
-
-                var footballer = new Footballer
+                try
                 {
-                    FirstName = fullName[0],
-                    LastName = fullName[1],
-                    Team = team
-                };
+                    var NameInLine = tr.QuerySelector("p.name b")?.InnerHtml;
+                    var team = tr.QuerySelector("p.team a:nth-child(2)")?.InnerHtml;
+                    //await Console.Out.WriteLineAsync($"{NameInLine} - {team}");
 
-                footballers.Add(footballer);
+                    //string phrase = "The quick brown fox jumps over the lazy dog.";
+                    if (string.IsNullOrEmpty(NameInLine))
+                    {
+                        continue;
+                    }
+                    string[] fullName = NameInLine.Split(' ');
+                    
+                    var footballer = new Footballer
+                    {
+                        Team = team
+                    };
+
+                    if (fullName.Count() ==1 )
+                    {
+                        footballer.FirstName = fullName[0];
+                    }
+                    if (fullName.Count() == 2)
+                    {
+                        footballer.LastName = fullName[1];
+                    }
+
+                    footballers.Add(footballer);
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+                    
             }
 
-            return footballers.Distinct().ToList();
+            return footballers.DistinctBy(p => p.FirstName).ToList();
         }
 
         public async Task StoreDataToDbAsync(List<Footballer> footballers, CancellationToken token)
         {
-            footballers = footballers.Distinct().ToList() ;
-            if (footballers.Count() == 0)
+            footballers = footballers.DistinctBy(p=> p.FirstName).ToList() ;
+            іif (footballers.Count() == 0)
             {
                 return;
             }
