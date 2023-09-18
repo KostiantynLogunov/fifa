@@ -21,4 +21,8 @@
     <ProjectReference Include="..\FIFA.Domain\FIFA.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Footballers\Commands\CreateFootballersRange\" />
+  </ItemGroup>
+
 </Project>

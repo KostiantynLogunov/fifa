@@ -14,6 +14,8 @@ using FIFA.WebApi;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Serilog.Events;
 using Serilog;
+using FIFA.WebApi.BackgroundService;
+using FIFA.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,12 @@ builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>,
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApiVersioning();
+
+builder.Services.AddSingleton<IResourceProcessingService, ResourceProcessingService>();
+
+builder.Services.AddHostedService<Worker>();
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

@@ -7,6 +7,7 @@ namespace FIFA.Domain
         public Guid Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? Team { get; set; }
         public string? OVR { get; set; }
         public string? POS { get; set; }
         public string? BIN{ get; set; }
